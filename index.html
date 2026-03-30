@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Optiverse EX</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#05030a;
+      --bg1:#0b0616;
+      --vio:#a855ff;
+      --vio2:#6d28ff;
+      --text:#f4f2ff;
+      --muted:rgba(244,242,255,.78);
+      --glass:rgba(255,255,255,.06);
+      --stroke:rgba(170,120,255,.45);
+      --shadow: 0 22px 70px rgba(0,0,0,.65);
+      --green:#2aff4a;
+      --green2:#00c73a;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 450px at 20% 75%, rgba(168,85,255,.28), transparent 60%),
+        radial-gradient(800px 420px at 80% 30%, rgba(109,40,255,.25), transparent 60%),
+        radial-gradient(900px 520px at 50% 110%, rgba(168,85,255,.22), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      overflow-x:hidden;
+    }
+
+    body:before{
+      content:"";
+      position:fixed;
+      inset:-200px;
+      pointer-events:none;
+      opacity:.65;
+      background:
+        radial-gradient(circle at 8% 12%, rgba(200,160,255,.9) 0 1px, transparent 2px),
+        radial-gradient(circle at 15% 70%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 25% 30%, rgba(200,160,255,.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 42% 18%, rgba(255,255,255,.65) 0 1px, transparent 2px),
+        radial-gradient(circle at 55% 62%, rgba(200,160,255,.8) 0 1px, transparent 2px),
+        radial-gradient(circle at 68% 25%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 78% 78%, rgba(200,160,255,.8) 0 1px, transparent 2px),
+        radial-gradient(circle at 92% 40%, rgba(255,255,255,.6) 0 1px, transparent 2px);
+      filter: blur(.2px);
+      transform: rotate(9deg);
+    }
+
+    .wrap{
+      width:min(1120px, 92vw);
+      margin:0 auto;
+      padding:48px 0 68px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:24px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr; gap:16px;}
+    }
+
+    .card{
+      position:relative;
+      border-radius:28px;
+      padding:18px 18px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(170,120,255,.38);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+      min-height: 640px;
+    }
+
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-3px;
+      border-radius:30px;
+      background:
+        radial-gradient(600px 260px at 50% 0%, rgba(168,85,255,.55), transparent 65%),
+        radial-gradient(420px 260px at 50% 100%, rgba(109,40,255,.45), transparent 65%);
+      filter: blur(14px);
+      opacity:.9;
+      z-index:0;
+    }
+    .card > *{position:relative; z-index:1;}
+
+    .card:after{
+      content:"";
+      position:absolute;
+      right:-140px;
+      bottom:-150px;
+      width:340px;
+      height:340px;
+      border-radius:999px;
+      background:
+        radial-gradient(closest-side, rgba(168,85,255,.35), transparent 70%),
+        conic-gradient(from 220deg, rgba(168,85,255,.0), rgba(168,85,255,.28), rgba(109,40,255,.0));
+      filter: blur(.2px);
+      opacity:.9;
+      z-index:0;
+      transform: rotate(12deg);
+    }
+
+    /* OPTIVERSE EX logo */
+    .logo{
+      text-align:center;
+      line-height:1;
+      margin-top:2px;
+      margin-bottom:10px;
+      font-family:Anton, Inter, sans-serif;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-size:24px; /* OPTIVERSE বড় বলে একটু ছোট */
+      text-shadow: 0 0 26px rgba(168,85,255,.35);
+    }
+    .logo .top{display:block; color:#ffffff; opacity:.95; transform:skewX(-10deg);}
+    .logo .bot{
+      display:block;
+      margin-top:-4px;
+      background: linear-gradient(180deg, #e9dcff, #a855ff 35%, #6d28ff);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      transform:skewX(-10deg);
+      font-size:28px;
+      letter-spacing:.10em;
+    }
+
+    .head{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      padding:10px 8px 14px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      margin:0 6px 10px;
+    }
+    .title{
+      margin:0;
+      font-family:Anton, Inter, sans-serif;
+      letter-spacing:.06em;
+      font-size:34px;
+      text-transform:uppercase;
+      text-shadow: 0 0 22px rgba(168,85,255,.25);
+    }
+    .headIcon{
+      width:42px; height:42px;
+      display:grid; place-items:center;
+      border-radius:14px;
+      background: rgba(168,85,255,.12);
+      border:1px solid rgba(170,120,255,.35);
+      box-shadow: 0 0 18px rgba(168,85,255,.18);
+    }
+
+    .list{
+      list-style:none;
+      margin:12px 0 0;
+      padding:0 8px;
+      display:grid;
+      gap:10px;
+    }
+    .li{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      color: rgba(244,242,255,.92);
+      font-weight:600;
+      font-size:14.5px;
+      line-height:1.25;
+    }
+    .dot{
+      width:20px; height:20px;
+      flex:0 0 20px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      margin-top:1px;
+      background: rgba(168,85,255,.22);
+      border:1px solid rgba(170,120,255,.45);
+      box-shadow: 0 0 14px rgba(168,85,255,.25);
+    }
+    .li .wa{
+      display:inline-grid;
+      place-items:center;
+      width:18px;height:18px;
+      margin-left:6px;
+      transform: translateY(3px);
+      opacity:.95;
+    }
+
+    .priceArea{
+      margin-top:auto;
+      padding:14px 10px 6px;
+      text-align:center;
+    }
+    .from{
+      color: rgba(244,242,255,.78);
+      font-weight:800;
+      letter-spacing:.01em;
+      font-size:14px;
+    }
+    .from s{opacity:.8; text-decoration-thickness:2px;}
+    .arrow{
+      display:inline-block;
+      margin-left:10px;
+      color: rgba(168,85,255,.9);
+      font-weight:900;
+      transform: translateY(1px);
+      text-shadow: 0 0 18px rgba(168,85,255,.3);
+    }
+
+    .priceRow{
+      margin-top:6px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      gap:8px;
+    }
+    .currency{
+      font-family:Anton, Inter, sans-serif;
+      font-size:34px;
+      letter-spacing:.04em;
+      opacity:.95;
+    }
+    .price{
+      font-family:Anton, Inter, sans-serif;
+      font-size:92px;
+      line-height:.9;
+      letter-spacing:.02em;
+      text-shadow: 0 0 22px rgba(168,85,255,.22);
+    }
+    .cents{
+      font-family:Anton, Inter, sans-serif;
+      font-size:40px;
+      opacity:.95;
+      transform: translateY(-10px);
+    }
+
+    .btnWrap{
+      margin-top:14px;
+      display:flex;
+      justify-content:center;
+    }
+    .btn{
+      width:min(320px, 96%);
+      border:0;
+      cursor:pointer;
+      padding:14px 18px;
+      border-radius:16px;
+      font-family:Anton, Inter, sans-serif;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:22px;
+      color:#031006;
+      background: linear-gradient(180deg, var(--green), var(--green2));
+      box-shadow:
+        0 0 0 2px rgba(0,0,0,.38) inset,
+        0 0 30px rgba(42,255,74,.35),
+        0 22px 55px rgba(0,0,0,.45);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); filter:saturate(1.08);}
+    .btn:active{transform: translateY(1px) scale(.99);}
+
+    .cardInner{
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+
+    svg{display:block}
+    .fill{fill:#efe8ff}
+    .stroke{stroke:#efe8ff}
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="grid">
+
+      <!-- ANDROID -->
+      <article class="card">
+        <div class="cardInner">
+          <div class="logo">
+            <span class="top">OPTIVERSE</span>
+            <span class="bot">EX</span>
+          </div>
+
+          <div class="head">
+            <h2 class="title">ANDROID</h2>
+            <div class="headIcon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24">
+                <path class="fill" d="M17.6 9.48 19 7.2a.6.6 0 0 0-1.03-.6l-1.46 2.4a8.3 8.3 0 0 0-9.02 0L6.03 6.6A.6.6 0 1 0 5 7.2l1.4 2.28A6.9 6.9 0 0 0 3.5 15v4.2c0 .66.54 1.2 1.2 1.2h1.2v1.2c0 .66.54 1.2 1.2 1.2h.6c.66 0 1.2-.54 1.2-1.2v-1.2h6v1.2c0 .66.54 1.2 1.2 1.2h.6c.66 0 1.2-.54 1.2-1.2v-1.2h1.2c.66 0 1.2-.54 1.2-1.2V15a6.9 6.9 0 0 0-2.8-5.52ZM9 13.2a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Zm6 0a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Z"/>
+              </svg>
+            </div>
+          </div>
+
+          <ul class="list">
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Samsung/Xiaomi/Motorola Realme/LG/Asus</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Comunidade no Whatsapp
+              <span class="wa" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <path class="fill" d="M12.04 2C6.55 2 2.1 6.45 2.1 11.94c0 1.76.46 3.48 1.34 5L2 22l5.2-1.37c1.45.79 3.08 1.2 4.84 1.2 5.49 0 9.94-4.45 9.94-9.94C22 6.45 17.55 2 12.04 2Zm5.82 14.34c-.25.71-1.46 1.36-2.02 1.44-.52.08-1.16.11-1.88-.12-.43-.14-.98-.32-1.69-.63-2.98-1.28-4.93-4.25-5.08-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.02-2.46.25-.3.56-.37.74-.37.19 0 .37 0 .53.01.17.01.4-.06.62.47.25.6.85 2.08.93 2.23.08.15.13.33.02.53-.11.2-.17.33-.33.51-.16.18-.34.4-.49.54-.16.15-.32.31-.14.61.18.3.8 1.32 1.71 2.13 1.18 1.05 2.17 1.38 2.48 1.54.31.16.49.13.68-.08.19-.2.78-.9.99-1.21.2-.3.41-.25.69-.15.28.1 1.8.85 2.11 1 .31.15.51.23.58.36.07.13.07.77-.18 1.48Z"/>
+                </svg>
+              </span>
+            </li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Sensi com DPI personalizado</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Huds Secretos</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Otimização para deixar o celular mais rápido</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Métodos secretos da Sensi sem Pinar</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Botão de atirar personalizado</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Mira 2× 4× Full vermelho</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Sensi Baixa, Média e Alta</li>
+          </ul>
+
+          <div class="priceArea">
+            <div class="from">De: <s>R$47,99</s> Por: <span class="arrow">↷</span></div>
+            <div class="priceRow">
+              <div class="currency">R$</div>
+              <div class="price">24</div>
+              <div class="cents">,99</div>
+            </div>
+            <div class="btnWrap">
+              <button class="btn" onclick="location.href='#android'">EU QUERO!</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- IPHONE -->
+      <article class="card">
+        <div class="cardInner">
+          <div class="logo">
+            <span class="top">OPTIVERSE</span>
+            <span class="bot">EX</span>
+          </div>
+
+          <div class="head">
+            <h2 class="title">IPHONE</h2>
+            <div class="headIcon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24">
+                <path class="fill" d="M16.7 13.2c0 2.9 2.5 3.9 2.5 3.9s-1.9 5.4-4.5 5.4c-1.2 0-1.7-.8-3.2-.8-1.5 0-2.1.8-3.2.8-2.4 0-4.7-5.1-4.7-8.8 0-3 1.7-4.6 3.7-4.6 1.4 0 2.3.9 3.2.9.9 0 2.1-1 3.7-1 .6 0 2.5.1 3.7 1.9-.1.1-2.2 1.3-2.2 3.3ZM14.6 2.3c.4 1.4-.4 2.8-1.2 3.7-.9 1-2.3 1.7-3.6 1.6-.3-1.3.5-2.7 1.3-3.6.9-1 2.5-1.8 3.5-1.7Z"/>
+              </svg>
+            </div>
+          </div>
+
+          <ul class="list">
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Todas as versões de iPhones</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Comunidade no Whatsapp</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Sensi com DPI personalizado</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Huds Secretos</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Otimização para deixar o celular mais rápido</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Métodos secretos da Sensi sem Pinar</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Botão de atirar personalizado</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Mira 2× 4× Full vermelho</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Sensi Baixa, Média e Alta</li>
+          </ul>
+
+          <div class="priceArea">
+            <div class="from">De: <s>R$47,99</s> Por: <span class="arrow">↷</span></div>
+            <div class="priceRow">
+              <div class="currency">R$</div>
+              <div class="price">24</div>
+              <div class="cents">,99</div>
+            </div>
+            <div class="btnWrap">
+              <button class="btn" onclick="location.href='#iphone'">EU QUERO!</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- EMULADOR -->
+      <article class="card">
+        <div class="cardInner">
+          <div class="logo">
+            <span class="top">OPTIVERSE</span>
+            <span class="bot">EX</span>
+          </div>
+
+          <div class="head">
+            <h2 class="title">EMULADOR</h2>
+            <div class="headIcon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24">
+                <path class="fill" d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16h-4.1v2h2.2c.4 0 .7.3.7.7s-.3.8-.7.8H8.4c-.4 0-.7-.4-.7-.8s.3-.7.7-.7h2.2v-2H6.5A2.5 2.5 0 0 1 4 13.5v-8Z"/>
+              </svg>
+            </div>
+          </div>
+
+          <ul class="list">
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Versões do Emulador Perfeito</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Comunidade no Whatsapp</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Otimização para pc Fraco</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Ajustes do Mouse e Mira</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Otimizações do Emulador</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Sensi dos Famosos</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> As melhores versões de Emulador</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Bônus: Máximo Desempenho do Computador</li>
+            <li class="li"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="stroke" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></svg></span> Segredos dos Famosos</li>
+          </ul>
+
+          <div class="priceArea">
+            <div class="from">De: <s>R$47,99</s> Por: <span class="arrow">↷</span></div>
+            <div class="priceRow">
+              <div class="currency">R$</div>
+              <div class="price">29</div>
+              <div class="cents">,99</div>
+            </div>
+            <div class="btnWrap">
+              <button class="btn" onclick="location.href='#emulador'">EU QUERO!</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+</body>
+</html>
